@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Special Surprise for Angela | Netflix</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <audio id="birthday-music" src="birthday-music.mp3" loop></audio>
+  <button id="btn-audio-toggle" class="audio-toggle-btn hidden">
+    <span class="audio-icon">🔇</span>
+  </button>
+
+  <!-- ==========================================  SCREEN 1: ENTER SITE  ========================================== -->
+  <div id="screen-enter" class="screen active">
+    <div class="hearts-container" id="hearts-container"></div>
+    <div class="enter-content">
+      <h1 class="netflix-logo">NETFLIX</h1>
+      <button id="btn-enter-site" class="netflix-btn primary-btn pulse-btn">ENTER SITE</button>
+      <p class="enter-subtext-main">A Special Birthday Experience For Angela ❤️</p>
+      <p class="enter-subtext-sub">Click To Begin The Celebration ✨</p>
+    </div>
+  </div>
+
+  <!-- ==========================================  INTRO VIDEO  ========================================== -->
+  <div id="intro-video-container" class="hidden">
+    <video id="intro-video" playsinline>
+      <source src="netflix-intro.mp4" type="video/mp4">
+      <source src="Netflix New Logo Animation 2019.mp4" type="video/mp4">
+    </video>
+    <div id="intro-css-fallback" class="hidden-fallback">
+      <div class="css-logo-n">N</div>
+    </div>
+    <button id="btn-skip-intro" class="skip-btn">Skip Intro ➔</button>
+  </div>
+
+  <!-- ==========================================  SCREEN 2: SURPRISE SELECTION  ========================================== -->
+  <div id="screen-surprises" class="screen hidden">
+    <div class="header-logo-container">
+      <span class="small-logo">NETFLIX</span>
+    </div>
+    <div class="surprises-wrapper">
+      <h1 class="surprises-title">4 Little Surprises For Angela ❤️</h1>
+      <div class="surprises-grid">
+        <div class="surprise-card" id="card-cake">
+          <div class="card-icon">🎂</div>
+          <h3>Birthday Cake</h3>
+          <p>Make a wish &amp; blow the candles!</p>
+        </div>
+        <div class="surprise-card main-card-glow" id="card-angela">
+          <div class="card-icon">⭐</div>
+          <h3>Angela</h3>
+          <p>Open the Birthday Special Movie!</p>
+        </div>
+        <div class="surprise-card" id="card-letter">
+          <div class="card-icon">💌</div>
+          <h3>A Letter For You</h3>
+          <p>A little heartfelt message just for you.</p>
+        </div>
+        <div class="surprise-card" id="card-special">
+          <div class="card-icon">🌹</div>
+          <h3>Why You're Special</h3>
+          <p>A collection of all the things we love about you.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================  MAIN BIRTHDAY MOVIE PAGE  ========================================== -->
+  <div id="screen-main" class="screen hidden">
+
+    <header class="main-header">
+      <span class="small-logo">NETFLIX</span>
+      <button id="btn-back-to-surprises" class="back-btn">➔ Go Back to Surprises</button>
+    </header>
+
+    <!-- Fullscreen Video Background -->
+    <div class="hero-bg-container fullscreen-hero">
+      <video id="hero-bg-video" autoplay loop playsinline muted>
+        <source src="background.mp4" type="video/mp4">
+      </video>
+      <div class="video-overlay"></div>
+    </div>
+
+    <!-- Hero Content -->
+    <div class="hero-fullscreen-content-wrapper">
+      <div class="hero-content">
+        <p class="hero-badge"><span class="badge-n">N</span> A NETFLIX ORIGINAL CELEBRATION</p>
+        <h1 class="hero-title cinematic-title" id="cinematic-hero-title">
+          <span>A</span><span>N</span><span>G</span><span>E</span><span>L</span><span>A</span><span>'</span><span>S</span>&nbsp;<span>B</span><span>I</span><span>R</span><span>T</span><span>H</span><span>D</span><span>A</span><span>Y</span>
+          <br>
+          <span>S</span><span>P</span><span>E</span><span>C</span><span>I</span><span>A</span><span>L</span>
+        </h1>
+        <div class="hero-rating">⭐⭐⭐⭐⭐</div>
+        <p class="hero-synopsis">
+          "Here's to another year of turning heads, breaking hearts, and making unforgettable memories. You bring the drama and I'll bring the popcorn."
+        </p>
+        <div class="hero-buttons">
+          <button id="btn-play-memories" class="netflix-btn primary-btn">
+            <span class="icon">▶</span> Play Memories
+          </button>
+          <button id="btn-more-info" class="netflix-btn secondary-btn">
+            <span class="icon">ⓘ</span> More Info
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         OUR JOURNEY TIMELINE
+         ========================================== -->
+    <section id="journey-timeline-section" class="journey-section">
+      <div class="journey-header">
+        <p class="journey-eyebrow">❤️ Our Story</p>
+        <h2 class="journey-title">Our Journey Together</h2>
+        <p class="journey-subtitle">Every step we took, every laugh we shared — a love story written in moments.</p>
+      </div>
+
+      <div class="journey-start-marker">
+        <div class="start-dot">❤️</div>
+        <span>Where It All Began</span>
+      </div>
+
+      <!-- Populated dynamically by JS -->
+      <div class="journey-timeline" id="journey-timeline"></div>
+
+      <div class="journey-end-marker">
+        <div class="end-dot">✨</div>
+        <span>Today &amp; Forever</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         BEAUTIFUL MOMENTS GALLERY
+         ========================================== -->
+    <section class="gallery-section-new">
+      <h2 class="gallery-heading-new">Beautiful Moments ❤️</h2>
+      <div class="gallery-grid-new">
+        <div class="gallery-item-new">
+          <img src="img1.jpg" alt="Moment 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="gallery-fallback-new card-gradient-1"><span>Gorgeous Smile 😊</span></div>
+        </div>
+        <div class="gallery-item-new">
+          <img src="img2.jpg" alt="Moment 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="gallery-fallback-new card-gradient-2"><span>Sparkling Eyes ✨</span></div>
+        </div>
+        <div class="gallery-item-new">
+          <img src="img3.jpg" alt="Moment 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="gallery-fallback-new card-gradient-3"><span>Unforgettable Times 🌸</span></div>
+        </div>
+        <div class="gallery-item-new">
+          <img src="img4.jpg" alt="Moment 4" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="gallery-fallback-new card-gradient-4"><span>Sweet Moments 💖</span></div>
+        </div>
+        <div class="gallery-item-new">
+          <img src="img5.jpg" alt="Moment 5" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="gallery-fallback-new card-gradient-5"><span>Endless Joy 🌹</span></div>
+        </div>
+        <div class="gallery-item-new">
+          <img src="img6.jpg" alt="Moment 6" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="gallery-fallback-new card-gradient-6"><span>Always Radiant 👑</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ending -->
+    <footer class="birthday-footer">
+      <h2 class="footer-title">The End?</h2>
+      <h1 class="footer-big-no">No.</h1>
+      <h3 class="footer-message">The Best Memories Are Yet To Come ❤️</h3>
+      <div class="footer-divider"></div>
+      <p class="footer-signature">Made Especially For Angela</p>
+    </footer>
+
+    <!-- Floating Secret Message Button -->
+    <button id="btn-floating-secret" class="floating-secret-btn">
+      Secret Message ❤️
+    </button>
+
+  </div><!-- end #screen-main -->
+
+  <!-- ==========================================
+       ALL MODALS / OVERLAYS
+       ========================================== -->
+
+  <!-- 1. BIRTHDAY CAKE -->
+  <div id="overlay-cake" class="modal-overlay hidden-overlay">
+    <div class="modal-card cake-card">
+      <button class="close-overlay" id="btn-close-cake">&times;</button>
+      <h2>Make a Wish! 🕯️</h2>
+      <div class="cake-container">
+        <div class="cake">
+          <div class="candle-glow" id="candle-glow"></div>
+          <div class="candle" id="cake-candle">
+            <div class="flame" id="candle-flame"></div>
+          </div>
+          <div class="frosting"></div>
+          <div class="cake-body"></div>
+        </div>
+      </div>
+      <button id="btn-cut-cake" class="netflix-btn primary-btn">Cut The Cake 🎂</button>
+      <h1 id="cake-celebration-text" class="hidden-text">Happy Birthday Angela ❤️</h1>
+      <canvas id="confetti-canvas"></canvas>
+    </div>
+  </div>
+
+  <!-- 2. LETTER -->
+  <div id="overlay-letter" class="modal-overlay hidden-overlay">
+    <div class="modal-card letter-card">
+      <button class="close-overlay" id="btn-close-letter">&times;</button>
+      <div class="envelope-wrapper">
+        <div class="envelope" id="envelope">
+          <div class="flap"></div>
+          <div class="pocket"></div>
+          <div class="letter" id="letter-content">
+            <div class="letter-inner">
+              <h2 class="letter-title">Dear Angela ❤️</h2>
+              <div class="letter-body">
+                <p>Happy Birthday to an incredibly special person! 🌟</p>
+                <p>On your special day, I wanted to send a little reminder of how wonderful you are. Thank you for always being such a supportive, kind, and positive friend.</p>
+                <p>May this year bring you endless laughs, beautiful moments, success, and all the happiness you deserve.</p>
+                <p>Keep shining bright and being the amazing person you are!</p>
+                <p class="letter-sign">With love &amp; warm wishes ❤️</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button id="btn-open-envelope" class="netflix-btn primary-btn">Open Letter 💌</button>
+    </div>
+  </div>
+
+  <!-- 3. WHY SPECIAL -->
+  <div id="overlay-special" class="modal-overlay hidden-overlay">
+    <div class="modal-card special-slides-card">
+      <button class="close-overlay" id="btn-close-special">&times;</button>
+      <h2>Why You're Special 🌹</h2>
+      <div class="slide-container">
+        <div class="special-slide active-slide"><span class="slide-emoji">😊</span><h3>Your Smile</h3><p>It can instantly brighten up any room and make everyone feel at ease.</p></div>
+        <div class="special-slide"><span class="slide-emoji">❤️</span><h3>Your Kindness</h3><p>The empathy you show to others is inspiring and truly heartwarming.</p></div>
+        <div class="special-slide"><span class="slide-emoji">✨</span><h3>Your Positive Energy</h3><p>You always find the silver lining and inspire others to keep moving forward.</p></div>
+        <div class="special-slide"><span class="slide-emoji">🌸</span><h3>Your Caring Nature</h3><p>You remember the little details and look out for everyone around you.</p></div>
+        <div class="special-slide"><span class="slide-emoji">😄</span><h3>Your Sense Of Humor</h3><p>You bring laughter and joy into the lives of everyone who knows you.</p></div>
+        <div class="special-slide"><span class="slide-emoji">🌹</span><h3>The Happiness You Bring</h3><p>Simply being around you makes life feel happier, warmer, and more fun.</p></div>
+      </div>
+      <div class="slides-controls">
+        <button id="btn-prev-slide" class="slide-nav-btn">◀ Prev</button>
+        <span id="slide-indicator">1 / 6</span>
+        <button id="btn-next-slide" class="slide-nav-btn">Next ▶</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. MORE INFO -->
+  <div id="modal-info" class="modal-overlay hidden-overlay">
+    <div class="modal-card info-modal-card">
+      <button class="close-overlay" id="btn-close-info">&times;</button>
+      <h2>Angela's Birthday Special</h2>
+      <div class="info-meta">
+        <span class="info-rating">⭐⭐⭐⭐⭐</span>
+        <span class="info-year">Her Birthday</span>
+        <span class="info-match">100% Match</span>
+      </div>
+      <div class="info-details">
+        <p><strong>Genre:</strong> Friendship</p>
+        <p><strong>Release Date:</strong> Her Birthday</p>
+        <p><strong>Rating:</strong> ⭐⭐⭐⭐⭐</p>
+        <p><strong>Runtime:</strong> A Lifetime</p>
+        <p class="info-desc">An exclusive celebratory showcase honoring a phenomenal friend. Filled with memories, high-spirited adventures, and plenty of laughs. Streaming forever on our screens.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. PLAY MEMORIES SLIDER -->
+  <div id="overlay-memories" class="modal-overlay hidden-overlay">
+    <div class="modal-card memories-slider-card">
+      <button class="close-overlay" id="btn-close-memories">&times;</button>
+      <h2>Our Memories 📸</h2>
+      <div class="memories-slider-viewport">
+        <div class="memory-slide active-slide"><img src="memory1.jpg" alt="Memory 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="memory-fallback card-gradient-1"><span>Pic Nic Outing 🧺</span></div></div>
+        <div class="memory-slide"><img src="memory2.jpg" alt="Memory 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="memory-fallback card-gradient-2"><span>Coffee Talk ☕</span></div></div>
+        <div class="memory-slide"><img src="memory3.jpg" alt="Memory 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="memory-fallback card-gradient-3"><span>Late Night Walks 🌙</span></div></div>
+        <div class="memory-slide"><img src="memory4.jpg" alt="Memory 4" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="memory-fallback card-gradient-4"><span>Sweet Smile ✨</span></div></div>
+        <div class="memory-slide"><img src="memory5.jpg" alt="Memory 5" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="memory-fallback card-gradient-5"><span>Birthday Wishes 🎉</span></div></div>
+        <div class="memory-slide"><img src="memory6.jpg" alt="Memory 6" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="memory-fallback card-gradient-6"><span>Celebrations 🥳</span></div></div>
+      </div>
+      <div class="slider-controls">
+        <button id="btn-prev-memory" class="slide-nav-btn">◀ Previous</button>
+        <span id="memory-indicator">1 / 6</span>
+        <button id="btn-next-memory" class="slide-nav-btn">Next ▶</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. SECRET MESSAGE -->
+  <div id="overlay-secret" class="modal-overlay hidden-overlay">
+    <div class="modal-card secret-card">
+      <button class="close-overlay" id="btn-close-secret">&times;</button>
+      <div class="secret-icon">❤️</div>
+      <h2>Happy Birthday Angela ❤️</h2>
+      <div class="secret-text">
+        <p>Every great story has a main character, and today that character is you.</p>
+        <p>Thank you for all the laughs, all the memories, and all the moments that made life brighter.</p>
+        <p>May this year bring you happiness, success, and everything you've been wishing for.</p>
+        <p class="highlight">Enjoy your special day.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. JOURNEY TIMELINE DETAIL MODAL (dynamically filled by JS) -->
+  <div id="journey-modal" class="modal-overlay hidden-overlay">
+    <div class="modal-card journey-modal-card">
+      <button class="close-overlay" id="btn-close-journey-modal">&times;</button>
+      <div class="jm-image-area">
+        <img id="jm-img" src="" alt="">
+        <div id="jm-emoji" class="jm-emoji-fallback"></div>
+      </div>
+      <div class="jm-body">
+        <span id="jm-date" class="jm-date"></span>
+        <h2 id="jm-title" class="jm-title"></h2>
+        <p id="jm-desc" class="jm-desc"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
