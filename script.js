@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // HERO VIDEO PLAYLIST (Single muted player)
   // ==========================================
   const heroVideoSrcs = [
-    './videos/background.mp4',
+    './videos/bg1.mp4',
     './videos/bg2.mp4',
     './videos/bg3.mp4',
     './videos/bg4.mp4'
@@ -361,42 +361,42 @@ document.addEventListener('DOMContentLoaded', () => {
   // OUR JOURNEY TIMELINE DATA (20 milestones)
   // ==========================================
   const journeyMilestones = [
-    { id:1,  title:'The First Hello',           date:'12 March 2022',    emoji:'🌸', image:'./timeline/1.jpg',  description:'Two strangers, one moment that changed everything. Neither of us knew that a simple hello would be the first word of our favourite story.' },
-    { id:2,  title:'Our First Coffee Together', date:'20 March 2022',    emoji:'☕', image:'./timeline/2.jpg',  description:'Hours turned into minutes when we were together. That little café became sacred ground — the place where we first truly laughed.' },
-    { id:3,  title:'The Late Night Call',       date:'5 April 2022',     emoji:'🌙', image:'./timeline/3.jpg',  description:'We talked until 3am and forgot the time entirely. That night, I realised talking to you was my favourite thing in the world.' },
-    { id:4,  title:'Dancing in the Rain',       date:'18 April 2022',    emoji:'🎵', image:'./timeline/4.jpg',  description:'The skies opened and instead of running, we danced. Soaked and laughing, we made magic out of an ordinary Tuesday.' },
-    { id:5,  title:'The Beach at Sunset',       date:'1 May 2022',       emoji:'🌊', image:'./timeline/5.jpg',  description:'Sitting at the edge of the world as the sun melted into the sea. You said something beautiful. I never forgot it.' },
-    { id:6,  title:'Picnic in the Park',        date:'15 May 2022',      emoji:'🧺', image:'./timeline/6.jpg',  description:'Sandwiches, lemonade, and you — the most perfect afternoon I can remember. Every bite tasted better with your laughter nearby.' },
-    { id:7,  title:'Movie Night Marathons',     date:'30 May 2022',      emoji:'🍿', image:'./timeline/7.jpg',  description:'We argued about which film to watch and fell asleep through all of them. Best movie nights ever — zero movies actually watched.' },
-    { id:8,  title:'Autumn Walk Together',      date:'10 October 2022',  emoji:'🍂', image:'./timeline/8.jpg',  description:'Crunching leaves underfoot, warm scarves, and your hand in mine. Some moments feel like they were designed just for us.' },
-    { id:9,  title:'Our First Road Trip',       date:'25 October 2022',  emoji:'🚗', image:'./timeline/9.jpg',  description:'We got lost twice, found a hidden café once, and sang every song on the radio. Probably the best wrong turn we ever made.' },
-    { id:10, title:'First Birthday Together',   date:'15 November 2022', emoji:'🎂', image:'./timeline/10.jpg', description:`You baked a lopsided cake and it was the most perfect thing I've ever tasted. Your smile that day — I keep it in my heart always.` },
-    { id:11, title:'Christmas Eve Magic',       date:'24 December 2022', emoji:'🎄', image:'./timeline/11.jpg', description:'Warm lights, hot chocolate, and the kind of evening that feels like a scene from a beautiful film. You made it feel like a dream.' },
-    { id:12, title:"New Year's Together",       date:'1 January 2023',   emoji:'🎆', image:'./timeline/12.jpg', description:'As the fireworks lit up the sky, I made a secret wish — that every new year begins exactly like this one. With you.' },
-    { id:13, title:'Spontaneous Cooking Night', date:'14 February 2023', emoji:'🍝', image:'./timeline/13.jpg', description:'We tried to cook pasta from scratch. It was a disaster. We ordered pizza in the end and laughed the whole night. Perfection.' },
-    { id:14, title:'Stargazing Night',          date:'20 March 2023',    emoji:'⭐', image:'./timeline/14.jpg', description:`Lying on a blanket beneath a million stars, you pointed at the sky and said "That one's mine." I said, "Then you already have the brightest one."` },
-    { id:15, title:'The Concert',               date:'8 April 2023',     emoji:'🎶', image:'./timeline/15.jpg', description:'You sang every word of every song. Watching you lose yourself in the music was better than the music itself. You were the show.' },
-    { id:16, title:'Rainy Day at Home',         date:'3 June 2023',      emoji:'🌧️', image:'./timeline/16.jpg', description:'No plans, nowhere to be, just you and a rainy window. Some of the best days look like nothing on paper and everything in memory.' },
-    { id:17, title:'Our Favourite Restaurant',  date:'20 August 2023',   emoji:'🍽️', image:'./timeline/17.jpg', description:'We went back to the place we had our first real dinner. Same booth, same menu — but everything felt richer this time. Because we were more us.' },
-    { id:18, title:'The Surprise I Planned',    date:'10 October 2023',  emoji:'🎁', image:'./timeline/18.jpg', description:'I had been planning it for weeks. The look on your face when you walked in made every second worth it ten times over.' },
-    { id:19, title:'Sunrise at the Hill',       date:'1 January 2024',   emoji:'🌅', image:'./timeline/19.jpg', description:'We woke up early and climbed to watch the first light of the new year. Cold air, warm coffee, and you beside me. What a way to begin.' },
-    { id:20, title:'Today — Your Birthday ❤️', date:'Right Now',        emoji:'🎉', image:'./timeline/20.jpg', description:`Every moment on this road has led to today. Happy Birthday, Angela. You are the most beautiful chapter of my life — and we're only just getting started.` }
+    { id:1,  title:'The First Hello',           date:'12 March 2022',    emoji:'🌸', image:'./timeline/img1.jpeg',  description:'Two strangers, one moment that changed everything. Neither of us knew that a simple hello would be the first word of our favourite story.' },
+    { id:2,  title:'Our First Coffee Together', date:'20 March 2022',    emoji:'☕', image:'./timeline/img1.jpeg',  description:'Hours turned into minutes when we were together. That little café became sacred ground — the place where we first truly laughed.' },
+    { id:3,  title:'The Late Night Call',       date:'5 April 2022',     emoji:'🌙', image:'./timeline/img1.jpeg',  description:'We talked until 3am and forgot the time entirely. That night, I realised talking to you was my favourite thing in the world.' },
+    { id:4,  title:'Dancing in the Rain',       date:'18 April 2022',    emoji:'🎵', image:'./timeline/img1.jpeg',  description:'The skies opened and instead of running, we danced. Soaked and laughing, we made magic out of an ordinary Tuesday.' },
+    { id:5,  title:'The Beach at Sunset',       date:'1 May 2022',       emoji:'🌊', image:'./timeline/img1.jpeg',  description:'Sitting at the edge of the world as the sun melted into the sea. You said something beautiful. I never forgot it.' },
+    { id:6,  title:'Picnic in the Park',        date:'15 May 2022',      emoji:'🧺', image:'./timeline/img1.jpeg',  description:'Sandwiches, lemonade, and you — the most perfect afternoon I can remember. Every bite tasted better with your laughter nearby.' },
+    { id:7,  title:'Movie Night Marathons',     date:'30 May 2022',      emoji:'🍿', image:'./timeline/img1.jpeg',  description:'We argued about which film to watch and fell asleep through all of them. Best movie nights ever — zero movies actually watched.' },
+    { id:8,  title:'Autumn Walk Together',      date:'10 October 2022',  emoji:'🍂', image:'./timeline/img1.jpeg',  description:'Crunching leaves underfoot, warm scarves, and your hand in mine. Some moments feel like they were designed just for us.' },
+    { id:9,  title:'Our First Road Trip',       date:'25 October 2022',  emoji:'🚗', image:'./timeline/img1.jpeg',  description:'We got lost twice, found a hidden café once, and sang every song on the radio. Probably the best wrong turn we ever made.' },
+    { id:10, title:'First Birthday Together',   date:'15 November 2022', emoji:'🎂', image:'./timeline/img1.jpeg', description:`You baked a lopsided cake and it was the most perfect thing I've ever tasted. Your smile that day — I keep it in my heart always.` },
+    { id:11, title:'Christmas Eve Magic',       date:'24 December 2022', emoji:'🎄', image:'./timeline/img1.jpeg', description:'Warm lights, hot chocolate, and the kind of evening that feels like a scene from a beautiful film. You made it feel like a dream.' },
+    { id:12, title:"New Year's Together",       date:'1 January 2023',   emoji:'🎆', image:'./timeline/img1.jpeg', description:'As the fireworks lit up the sky, I made a secret wish — that every new year begins exactly like this one. With you.' },
+    { id:13, title:'Spontaneous Cooking Night', date:'14 February 2023', emoji:'🍝', image:'./timeline/img1.jpeg', description:'We tried to cook pasta from scratch. It was a disaster. We ordered pizza in the end and laughed the whole night. Perfection.' },
+    { id:14, title:'Stargazing Night',          date:'20 March 2023',    emoji:'⭐', image:'./timeline/img1.jpeg', description:`Lying on a blanket beneath a million stars, you pointed at the sky and said "That one's mine." I said, "Then you already have the brightest one."` },
+    { id:15, title:'The Concert',               date:'8 April 2023',     emoji:'🎶', image:'./timeline/img1.jpeg', description:'You sang every word of every song. Watching you lose yourself in the music was better than the music itself. You were the show.' },
+    { id:16, title:'Rainy Day at Home',         date:'3 June 2023',      emoji:'🌧️', image:'./timeline/img1.jpeg', description:'No plans, nowhere to be, just you and a rainy window. Some of the best days look like nothing on paper and everything in memory.' },
+    { id:17, title:'Our Favourite Restaurant',  date:'20 August 2023',   emoji:'🍽️', image:'./timeline/img1.jpeg', description:'We went back to the place we had our first real dinner. Same booth, same menu — but everything felt richer this time. Because we were more us.' },
+    { id:18, title:'The Surprise I Planned',    date:'10 October 2023',  emoji:'🎁', image:'./timeline/img1.jpeg', description:'I had been planning it for weeks. The look on your face when you walked in made every second worth it ten times over.' },
+    { id:19, title:'Sunrise at the Hill',       date:'1 January 2024',   emoji:'🌅', image:'./timeline/img1.jpeg', description:'We woke up early and climbed to watch the first light of the new year. Cold air, warm coffee, and you beside me. What a way to begin.' },
+    { id:20, title:'Today — Your Birthday ❤️', date:'Right Now',        emoji:'🎉', image:'./timeline/img1.jpeg', description:`Every moment on this road has led to today. Happy Birthday, Angela. You are the most beautiful chapter of my life — and we're only just getting started.` }
   ];
 
   // ==========================================
   // VIDEO MEMORIES GALLERY DATA (10 slots: 6 active, 4 future placeholders)
   // ==========================================
   const videoMemories = [
-    { title: 'First Meeting',      video: './shorts/sh1.mp4' },
-    { title: 'Coffee Date',        video: './shorts/sh2.mp4' },
-    { title: 'The Walk',           video: './shorts/sh3.mp4' },
-    { title: 'Beach Sunset',       video: './shorts/sh4.mp4' },
-    { title: 'Movie Night',        video: './shorts/sh5.mp4' },
-    { title: 'Autumn Together',    video: './shorts/sh6.mp4' },
-    { title: 'Future Memory 7',    video: './nt.mp4' },
-    { title: 'Future Memory 8',    video: '' },
-    { title: 'Future Memory 9',    video: '' },
-    { title: 'Future Memory 10',   video: '' }
+    { video: './shorts/sh1.mp4' },
+    { video: './shorts/sh2.mp4' },
+    { video: './shorts/sh3.mp4' },
+    { video: './shorts/sh4.mp4' },
+    { video: './shorts/sh5.mp4' },
+    { video: './shorts/sh6.mp4' },
+    { video: './shorts/sh7.mp4' },
+    { video: './shorts/sh8.mp4' },
+    { video: './shorts/sh9.mp4' },
+    { video: './shorts/sh10.mp4' }
   ];
 
   function getVGVisible() {
@@ -430,11 +430,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const overlay     = document.createElement('div');
       overlay.className = 'vg-card-overlay';
-      overlay.innerHTML = `<span class="vg-card-title">${mem.title}</span>`;
 
       const fallback     = document.createElement('div');
       fallback.className = 'vg-card-fallback';
-      fallback.innerHTML = `<span>🎬</span><p>${mem.title}</p>`;
 
       vid.addEventListener('canplay', () => {
         fallback.style.display = 'none';
