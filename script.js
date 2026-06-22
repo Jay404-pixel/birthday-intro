@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // STATE
   // ==========================================
   const state = {
-    isMuted: true,
     activeSpecialSlide: 0,
     activeMemorySlide: 0,
     vgPage: 0
@@ -28,64 +27,59 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnAudioToggle      = document.getElementById('btn-audio-toggle');
 
   // ==========================================
-  // HERO VIDEO PLAYLIST (crossfade between 4 videos)
+  // HERO VIDEO PLAYLIST (Single muted player)
   // ==========================================
   const heroVideoSrcs = [
-    './videos/hero1.mp4',
-    './videos/hero2.mp4',
-    './videos/hero3.mp4',
-    './videos/hero4.mp4'
+    './videos/background.mp4',
+    './videos/bg2.mp4',
+    './videos/bg3.mp4',
+    './videos/bg4.mp4'
   ];
 
-  let heroIdx       = 0;  // which src index is currently active
-  let heroActiveEl  = 0;  // which element (0=A, 1=B) is visible
-  const heroEls     = [
-    document.getElementById('hero-video-a'),
-    document.getElementById('hero-video-b')
-  ];
+  let heroIdx       = 0;
+  const heroVideoEl = document.getElementById('hero-video');
 
   function initHeroPlaylist() {
-    if (!heroEls[0] || !heroEls[1]) return;
+    if (!heroVideoEl) return;
 
-    // Load first two videos
-    heroEls[0].src  = heroVideoSrcs[0];
-    heroEls[1].src  = heroVideoSrcs[1 % heroVideoSrcs.length];
-    heroEls[0].muted = true;
-    heroEls[1].muted = true;
+    // Load first video
+    heroVideoEl.src = heroVideoSrcs[0];
+    heroVideoEl.muted = true; // Permanently silent
+    heroVideoEl.removeAttribute('loop'); // Handle switching via 'ended'
 
-    // Make A visible immediately
-    heroEls[0].classList.add('hero-vid-active');
+    heroVideoEl.addEventListener('error', () => {
+      console.warn('Hero background video source failed to load:', heroVideoEl.src);
+    });
 
-    // Both listen for end to advance
-    heroEls[0].addEventListener('ended', advanceHero);
-    heroEls[1].addEventListener('ended', advanceHero);
+    heroVideoEl.addEventListener('ended', advanceHero);
 
-    heroEls[0].play().catch(() => {});
+    heroVideoEl.play().catch(() => {});
   }
 
   function advanceHero() {
-    heroIdx              = (heroIdx + 1) % heroVideoSrcs.length;
-    const nextEl         = 1 - heroActiveEl;
-    const preloadIdx     = (heroIdx + 1) % heroVideoSrcs.length;
-
-    // Crossfade: show next, hide current
-    heroEls[nextEl].classList.add('hero-vid-active');
-    heroEls[heroActiveEl].classList.remove('hero-vid-active');
-    heroEls[nextEl].play().catch(() => {});
-
-    heroActiveEl = nextEl;
-
-    // Preload the video after next into the now-idle element
-    setTimeout(() => {
-      const idleEl       = 1 - heroActiveEl;
-      heroEls[idleEl].src = heroVideoSrcs[preloadIdx];
-      heroEls[idleEl].load();
-    }, 1200);
+    if (!heroVideoEl) return;
+    heroIdx = (heroIdx + 1) % heroVideoSrcs.length;
+    heroVideoEl.src = heroVideoSrcs[heroIdx];
+    heroVideoEl.muted = true; // Stay muted
+    heroVideoEl.play().catch(err => {
+      console.warn('Hero playlist transition failed:', err);
+    });
   }
 
-  function heroSetMuted(m)  { heroEls.forEach(v => { if (v) v.muted = m; }); }
-  function heroPause()      { heroEls.forEach(v => { if (v) v.pause(); }); }
-  function heroPlay()       { const a = heroEls[heroActiveEl]; if (a) a.play().catch(() => {}); }
+  function heroSetMuted(m) {
+    if (heroVideoEl) heroVideoEl.muted = true; // Always muted
+  }
+
+  function heroPause() {
+    if (heroVideoEl) heroVideoEl.pause();
+  }
+
+  function heroPlay() {
+    if (heroVideoEl) {
+      heroVideoEl.muted = true; // Always muted
+      heroVideoEl.play().catch(() => {});
+    }
+  }
 
   // ==========================================
   // SCREEN 1 — FLOATING HEARTS
@@ -273,16 +267,17 @@ document.addEventListener('DOMContentLoaded', () => {
       screenSurprises.classList.remove('active');
       screenMain.classList.remove('hidden');
       screenMain.classList.add('active');
+
+      // ── Birthday music: start automatically, unmuted ──
+      if (birthdayMusic) {
+        birthdayMusic.muted = false;
+        birthdayMusic.play().catch(() => {});
+      }
       if (btnAudioToggle) btnAudioToggle.classList.remove('hidden');
-
-      // Audio
-      state.isMuted = false;
-      if (birthdayMusic) { birthdayMusic.muted = false; birthdayMusic.play().catch(() => {}); }
-
-      // Hero playlist
-      initHeroPlaylist();
-      heroSetMuted(false);
       updateAudioButtonUI();
+
+      // ── Hero background playlist (always muted, independent) ──
+      initHeroPlaylist();
 
       // Cinematic title reveal
       document.querySelectorAll('.cinematic-title span').forEach(s => {
@@ -298,47 +293,42 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Go Back
+  // Go Back — stop music when leaving the Main Birthday Movie Page
   safeOn('btn-back-to-surprises', () => {
     screenMain.classList.add('hidden');
     screenMain.classList.remove('active');
-    if (btnAudioToggle) btnAudioToggle.classList.add('hidden');
     screenSurprises.classList.remove('hidden');
     screenSurprises.classList.add('active');
+
+    // Stop birthday music — it only belongs on the Main Birthday Movie Page
     if (birthdayMusic) birthdayMusic.pause();
+    if (btnAudioToggle) btnAudioToggle.classList.add('hidden');
+
     heroPause();
     pauseAllGalleryVideos();
   });
 
-  // Audio toggle
+  // ── Audio toggle: controls ONLY the birthday music on the Main Birthday Movie Page ──
   function updateAudioButtonUI() {
     const icon = btnAudioToggle ? btnAudioToggle.querySelector('.audio-icon') : null;
-    if (icon) icon.textContent = state.isMuted ? '🔇' : '🔊';
+    if (!icon) return;
+    // Derive icon from actual playback state — no external flag needed
+    icon.textContent = (birthdayMusic && !birthdayMusic.paused) ? '🔊' : '🔇';
   }
+
   if (btnAudioToggle) {
     btnAudioToggle.addEventListener('click', () => {
-      state.isMuted = !state.isMuted;
-      if (birthdayMusic) birthdayMusic.muted = state.isMuted;
-      heroSetMuted(state.isMuted);
-      if (state.isMuted) {
-        if (birthdayMusic) birthdayMusic.pause();
-        heroPause();
+      if (!birthdayMusic) return;
+      if (birthdayMusic.paused) {
+        // Music is paused — resume it
+        birthdayMusic.muted = false;
+        birthdayMusic.play().catch(() => {});
       } else {
-        if (birthdayMusic) birthdayMusic.play().catch(() => {});
-        heroPlay();
+        // Music is playing — pause it
+        birthdayMusic.pause();
       }
-      // Also update gallery videos
-      document.querySelectorAll('.vg-video').forEach((v, i) => {
-        const vis   = getVGVisible();
-        const start = state.vgPage * vis;
-        const end   = start + vis;
-        if (i >= start && i < end) {
-          v.muted = state.isMuted;
-          if (!state.isMuted) v.play().catch(() => {});
-          else v.pause();
-        }
-      });
       updateAudioButtonUI();
+      // Hero background videos are permanently muted — unaffected by this button
     });
   }
 
@@ -394,19 +384,19 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
 
   // ==========================================
-  // VIDEO MEMORIES GALLERY DATA (10 videos)
+  // VIDEO MEMORIES GALLERY DATA (10 slots: 6 active, 4 future placeholders)
   // ==========================================
   const videoMemories = [
-    { title: 'First Meeting',      video: './videos/video1.mp4'  },
-    { title: 'Coffee Date',        video: './videos/video2.mp4'  },
-    { title: 'The Walk',           video: './videos/video3.mp4'  },
-    { title: 'Beach Sunset',       video: './videos/video4.mp4'  },
-    { title: 'Movie Night',        video: './videos/video5.mp4'  },
-    { title: 'Autumn Together',    video: './videos/video6.mp4'  },
-    { title: 'Our Road Trip',      video: './videos/video7.mp4'  },
-    { title: 'Birthday Surprise',  video: './videos/video8.mp4'  },
-    { title: 'Christmas Eve',      video: './videos/video9.mp4'  },
-    { title: 'Today & Always',     video: './videos/video10.mp4' }
+    { title: 'First Meeting',      video: './shorts/sh1.mp4' },
+    { title: 'Coffee Date',        video: './shorts/sh2.mp4' },
+    { title: 'The Walk',           video: './shorts/sh3.mp4' },
+    { title: 'Beach Sunset',       video: './shorts/sh4.mp4' },
+    { title: 'Movie Night',        video: './shorts/sh5.mp4' },
+    { title: 'Autumn Together',    video: './shorts/sh6.mp4' },
+    { title: 'Future Memory 7',    video: './nt.mp4' },
+    { title: 'Future Memory 8',    video: '' },
+    { title: 'Future Memory 9',    video: '' },
+    { title: 'Future Memory 10',   video: '' }
   ];
 
   function getVGVisible() {
@@ -418,13 +408,15 @@ document.addEventListener('DOMContentLoaded', () => {
   let vgBuilt = false;
 
   function buildVideoGallery() {
-    if (vgBuilt) return;
     const track = document.getElementById('vg-track');
     if (!track) return;
+    if (vgBuilt) return;
     vgBuilt = true;
 
-    // Build 10 video cards
+    // Build only active video cards (skipping future placeholders with empty paths)
     videoMemories.forEach(mem => {
+      if (!mem.video) return; // Skip empty placeholder records as requested
+
       const card = document.createElement('div');
       card.className = 'vg-card';
 
@@ -433,8 +425,8 @@ document.addEventListener('DOMContentLoaded', () => {
       vid.src           = mem.video;
       vid.playsInline   = true;
       vid.loop          = true;
-      vid.muted         = true;
-      vid.preload       = 'metadata';
+      vid.muted         = true; // Permanently muted as requested
+      vid.preload       = 'auto';
 
       const overlay     = document.createElement('div');
       overlay.className = 'vg-card-overlay';
@@ -444,13 +436,21 @@ document.addEventListener('DOMContentLoaded', () => {
       fallback.className = 'vg-card-fallback';
       fallback.innerHTML = `<span>🎬</span><p>${mem.title}</p>`;
 
+      vid.addEventListener('canplay', () => {
+        fallback.style.display = 'none';
+      });
+
+      vid.addEventListener('error', () => {
+        fallback.style.display = 'flex';
+        vid.style.display = 'none';
+      });
+
       card.appendChild(vid);
       card.appendChild(overlay);
       card.appendChild(fallback);
       track.appendChild(card);
     });
 
-    setVGCardWidths();
     buildVGDots();
     updateVGDots();
     updateVGNav();
@@ -460,10 +460,9 @@ document.addEventListener('DOMContentLoaded', () => {
     safeOn('vg-prev', () => slideVG(-1));
     safeOn('vg-next', () => slideVG(1));
 
-    // Resize: reset to page 0 and recalculate
+    // Resize: rebuild dots/nav (card widths driven by CSS, no JS override needed)
     window.addEventListener('resize', () => {
       state.vgPage = 0;
-      setVGCardWidths();
       if (typeof gsap !== 'undefined') gsap.set('#vg-track', { x: 0 });
       else { const t = document.getElementById('vg-track'); if (t) t.style.transform = 'translateX(0)'; }
       buildVGDots();
@@ -473,22 +472,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function setVGCardWidths() {
-    const viewport = document.getElementById('vg-viewport');
-    const track    = document.getElementById('vg-track');
-    if (!viewport || !track) return;
-    const vis   = getVGVisible();
-    const gap   = 16;
-    const cardW = (viewport.offsetWidth - gap * (vis - 1)) / vis;
-    track.querySelectorAll('.vg-card').forEach(c => {
-      c.style.width    = cardW + 'px';
-      c.style.minWidth = cardW + 'px';
-    });
-  }
+  // setVGCardWidths removed — card dimensions are now controlled by CSS (220px x 420px fixed).
+  // This avoids JS overriding CSS layout and the 0px collapse when viewport is initially hidden.
 
   function slideVG(dir) {
     const vis        = getVGVisible();
-    const totalPages = Math.ceil(videoMemories.length / vis);
+    const activeVids = videoMemories.filter(m => m.video).length;
+    const totalPages = Math.ceil(activeVids / vis);
     const newPage    = state.vgPage + dir;
 
     // Don't wrap — clamp to bounds
@@ -497,7 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const card = document.querySelector('.vg-card');
     if (!card) return;
-    const gap    = 16;
+    const gap    = 20;  // Must match CSS gap on #vg-track
     const slideW = (card.offsetWidth + gap) * vis;
     const offset = -(state.vgPage * slideW);
 
@@ -524,7 +514,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const end    = start + vis;
     videos.forEach((v, i) => {
       if (i >= start && i < end) {
-        v.muted = state.isMuted;
+        v.muted = true; // Always muted
         v.play().catch(() => {});
       } else {
         v.pause();
@@ -541,11 +531,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!dotsEl) return;
     dotsEl.innerHTML = '';
     const vis   = getVGVisible();
-    const total = Math.ceil(videoMemories.length / vis);
+    const activeVids = videoMemories.filter(m => m.video).length;
+    const total = Math.ceil(activeVids / vis);
     for (let i = 0; i < total; i++) {
       const dot = document.createElement('button');
       dot.className = 'vg-dot';
-      dot.setAttribute('aria-label', `Page ${i + 1}`);
+      // Set label as numeric pagination value
+      dot.textContent = `${i + 1}`;
+      dot.setAttribute('aria-label', `Go to Page ${i + 1}`);
       dot.addEventListener('click', () => {
         const diff = i - state.vgPage;
         if (diff !== 0) slideVG(diff);
@@ -560,7 +553,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateVGNav() {
     const vis        = getVGVisible();
-    const totalPages = Math.ceil(videoMemories.length / vis);
+    const activeVids = videoMemories.filter(m => m.video).length;
+    const totalPages = Math.ceil(activeVids / vis);
     const prev       = document.getElementById('vg-prev');
     const next       = document.getElementById('vg-next');
     if (prev) { prev.style.opacity = state.vgPage === 0 ? '0.3' : '1'; prev.style.pointerEvents = state.vgPage === 0 ? 'none' : 'auto'; }

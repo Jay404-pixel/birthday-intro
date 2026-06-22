@@ -474,12 +474,12 @@ body {
   font-size: 1.2rem;
 }
 
-/* Hero Fullscreen Video Background (100vw, 100vh) */
+/* Hero Fullscreen Video Background (100%, 100vh) */
 .hero-bg-container.fullscreen-hero {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   overflow: hidden;
   z-index: 1;
@@ -497,8 +497,8 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.45) 50%, rgba(0, 0, 0, 0.85) 100%),
-              linear-gradient(to top, var(--color-bg) 0%, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0) 100%);
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.45) 100%),
+              linear-gradient(to top, var(--color-bg) 0%, rgba(0, 0, 0, 0) 15%, rgba(0, 0, 0, 0) 100%);
   z-index: 2;
 }
 
@@ -684,9 +684,9 @@ svg#tree {
 }
 
 /* ==========================================================================
-   NEW SECTION: BEAUTIFUL MOMENTS (GALLERY BELOW HERO)
+   NEW SECTION: VIDEO MEMORIES (GALLERY BELOW HERO - SHORTS/REELS STYLE)
    ========================================================================== */
-.gallery-section-new {
+.video-gallery-section {
   position: relative;
   z-index: 5;
   background-color: var(--color-bg);
@@ -696,58 +696,183 @@ svg#tree {
 .gallery-heading-new {
   font-size: 2.2rem;
   font-weight: 500;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   color: var(--color-text);
   border-left: 4px solid var(--color-primary);
   padding-left: 12px;
 }
 
-.gallery-grid-new {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-}
-
-.gallery-item-new {
+.vg-wrapper {
   position: relative;
-  aspect-ratio: 4 / 3;
-  background-color: var(--color-surface);
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-  cursor: pointer;
-  transition: transform 0.4s ease;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
-.gallery-item-new img {
+#vg-viewport {
+  width: 100%;
+  max-width: 1180px;  /* 5 * 220px + 4 * 20px gaps */
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  border-radius: 12px;
+}
+
+#vg-track {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: flex-start !important;
+  gap: 20px !important;
+  width: max-content;
+  will-change: transform;
+  transition: transform 0.65s cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+.vg-card {
+  position: relative;
+  width: 220px;
+  min-width: 220px;
+  max-width: 220px;
+  height: 420px;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.vg-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(229, 9, 20, 0.3);
+  border-color: rgba(229, 9, 20, 0.4);
+}
+
+.vg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 8px;
-  transition: transform 0.5s ease;
+  z-index: 1;
+  border-radius: 12px;
 }
 
-.gallery-fallback-new {
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
+.vg-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2.5rem 1.2rem 1.2rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0) 100%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.vg-card-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+  display: block;
+}
+
+.vg-card-fallback {
+  position: absolute;
+  inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
+  z-index: 2;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #1b0008 0%, #2e0011 100%);
+  padding: 1.5rem;
+}
+
+.vg-card-fallback span {
+  font-size: 3rem;
+  margin-bottom: 0.8rem;
+}
+
+.vg-card-fallback p {
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.8);
+}
+
+/* Nav Buttons */
+.vg-nav-btn {
+  background: rgba(20, 20, 20, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  transition: all 0.3s ease;
+  z-index: 10;
+  flex-shrink: 0;
+  backdrop-filter: blur(4px);
+}
+
+.vg-nav-btn:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: scale(1.1);
+}
+
+/* Dots & Jump Navigation */
+.vg-dots-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.vg-dot {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
   font-weight: bold;
-  font-size: 1.3rem;
-  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
 }
 
-/* Gallery Hover Animations */
-.gallery-item-new:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 12px 30px rgba(229, 9, 20, 0.25);
+.vg-dot:hover {
+  background: rgba(255, 255, 255, 0.4);
+  color: #fff;
 }
 
-.gallery-item-new:hover img {
-  transform: scale(1.06);
+.vg-dot.vg-dot-active {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+  transform: scale(1.1);
 }
 
 /* ==========================================================================
@@ -1340,9 +1465,6 @@ svg#tree {
   .hero-title.cinematic-title {
     font-size: 3.8rem;
   }
-  .gallery-grid-new {
-    grid-template-columns: repeat(3, 1fr);
-  }
 }
 
 @media (max-width: 768px) {
@@ -1368,10 +1490,6 @@ svg#tree {
   }
   .hero-buttons {
     justify-content: center;
-  }
-  .gallery-grid-new {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
   }
   .footer-big-no {
     font-size: 4.5rem;
@@ -1401,10 +1519,6 @@ svg#tree {
   .netflix-btn {
     width: 100%;
     justify-content: center;
-  }
-  .gallery-grid-new {
-    grid-template-columns: 1fr;
-    gap: 1.2rem;
   }
   .modal-card {
     padding: 2.5rem 1.5rem;

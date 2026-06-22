@@ -11,7 +11,7 @@
 </head>
 <body>
 
-  <audio id="birthday-music" src="birthday-music.mp3" loop></audio>
+  <audio id="birthday-music" src="timeline/song.mpeg" loop></audio>
   <button id="btn-audio-toggle" class="audio-toggle-btn hidden">
     <span class="audio-icon">🔇</span>
   </button>
@@ -81,9 +81,7 @@
 
     <!-- Fullscreen Video Background -->
     <div class="hero-bg-container fullscreen-hero">
-      <video id="hero-bg-video" autoplay loop playsinline muted>
-        <source src="background.mp4" type="video/mp4">
-      </video>
+      <video id="hero-video" autoplay playsinline muted></video>
       <div class="video-overlay"></div>
     </div>
 
@@ -136,36 +134,18 @@
     </section>
 
     <!-- ==========================================
-         BEAUTIFUL MOMENTS GALLERY
+         VIDEO MEMORIES GALLERY (SHORTS/REELS STYLE)
          ========================================== -->
-    <section class="gallery-section-new">
-      <h2 class="gallery-heading-new">Beautiful Moments ❤️</h2>
-      <div class="gallery-grid-new">
-        <div class="gallery-item-new">
-          <img src="img1.jpg" alt="Moment 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <div class="gallery-fallback-new card-gradient-1"><span>Gorgeous Smile 😊</span></div>
+    <section class="video-gallery-section">
+      <h2 class="gallery-heading-new">Video Memories Gallery ❤️</h2>
+      <div class="vg-wrapper">
+        <button id="vg-prev" class="vg-nav-btn" aria-label="Previous Page">&lt;</button>
+        <div id="vg-viewport">
+          <div id="vg-track"></div>
         </div>
-        <div class="gallery-item-new">
-          <img src="img2.jpg" alt="Moment 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <div class="gallery-fallback-new card-gradient-2"><span>Sparkling Eyes ✨</span></div>
-        </div>
-        <div class="gallery-item-new">
-          <img src="img3.jpg" alt="Moment 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <div class="gallery-fallback-new card-gradient-3"><span>Unforgettable Times 🌸</span></div>
-        </div>
-        <div class="gallery-item-new">
-          <img src="img4.jpg" alt="Moment 4" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <div class="gallery-fallback-new card-gradient-4"><span>Sweet Moments 💖</span></div>
-        </div>
-        <div class="gallery-item-new">
-          <img src="img5.jpg" alt="Moment 5" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <div class="gallery-fallback-new card-gradient-5"><span>Endless Joy 🌹</span></div>
-        </div>
-        <div class="gallery-item-new">
-          <img src="img6.jpg" alt="Moment 6" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <div class="gallery-fallback-new card-gradient-6"><span>Always Radiant 👑</span></div>
-        </div>
+        <button id="vg-next" class="vg-nav-btn" aria-label="Next Page">&gt;</button>
       </div>
+      <div id="vg-dots" class="vg-dots-container"></div>
     </section>
 
     <!-- Ending -->
